@@ -1,3 +1,4 @@
+import { Header } from "../components/shared/Header"
 
 interface Props {
   children: React.ReactNode
@@ -10,6 +11,7 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
       <div className="relative bg-[url('./snow2-min.png')] ">
         <div className="bg-white absolute opacity-50 rounded-xl left-0 top-0 w-full h-full z-0"></div>
         <div className="absolute top-0 left-0 w-full h-full z-10 p-4">
+          <Header />
           {children}
         </div>
 
