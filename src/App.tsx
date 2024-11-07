@@ -1,38 +1,21 @@
 
-import { Route, Switch } from 'wouter'
-import './App.css'
+import { Route, Router } from 'wouter'
 import { LayoutMain } from './layouts/LayoutMain'
+import { Gps, Letters } from './pages'
+import './App.css'
 
 function App() {
 
   return (
     <>
       <LayoutMain>
-        <div></div>
-        <Switch>
-          <Route path="/" component={MyRute} />
+        <Router>
+          <Route path="/" component={Gps} />
           <Route path="/letters" component={Letters} />
-        </Switch>
+        </Router>
       </LayoutMain>
     </>
   )
 }
 
 export default App
-
-
-const MyRute = () => {
-  return (
-    <div>
-      <h1>Hola</h1>
-    </div>
-  )
-}
-
-const Letters = () => {
-  return (
-    <div>
-      <h1>Cartas</h1>
-    </div>
-  )
-}

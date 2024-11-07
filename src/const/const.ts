@@ -1,6 +1,6 @@
 export const MENU_LIST = [
   {
-    name: 'GPS',
+    name: 'Gps',
     path: '/'
   },
   {
