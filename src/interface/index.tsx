@@ -3,4 +3,5 @@ export interface Card {
     titleCard: string,
     content: string,
     date_read: string,
+    wasRead: boolean
 }
