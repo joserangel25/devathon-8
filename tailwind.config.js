@@ -8,6 +8,9 @@ export default {
     extend: {
       textColor: {
         'primary': '#00873E'
+      },
+      colors: {
+        'primary': '#00873E'
       }
     },
   },

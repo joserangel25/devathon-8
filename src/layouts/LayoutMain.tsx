@@ -19,7 +19,7 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
           <img src="./caja_regalo.svg" alt="Imagen de la caja de regalo" className="w-32 h-32" />
         </picture>
 
-        <picture className="absolute -bottom-10 -right-10 ">
+        <picture className="absolute -bottom-10 -right-10 z-10">
           <img src="./snowman.svg" alt="Imagen del muñeco de nieve" className="w-32 h-32" />
         </picture>
       </div>
