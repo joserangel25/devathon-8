@@ -1,6 +1,10 @@
+import { MapComponent, AddressList } from "../components/map"
 
 export const Gps = () => {
   return (
-    <div>Gps</div>
+    <div className="w-full h-full flex gap-2 pb-12">
+      <MapComponent />
+      <AddressList />
+    </div>
   )
 }
