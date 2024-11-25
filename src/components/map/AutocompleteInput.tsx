@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
+import { useAddressStore } from '../../store/address';
 
-
-interface Props {
-  onChangeLocation: (lat: number, lng: number) => void
-}
-
-export const AutocompleteInput: React.FC<Props> = ({ onChangeLocation }) => {
+export const AutocompleteInput = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
-
   const placesLib = useMapsLibrary('places')
+
+  const setAddress = useAddressStore((state) => state.setAddress)
 
   useEffect(() => {
     if (inputRef.current && !autocomplete && placesLib) {
@@ -20,17 +17,18 @@ export const AutocompleteInput: React.FC<Props> = ({ onChangeLocation }) => {
 
       autocompleteInstance.addListener('place_changed', () => {
         const place = autocompleteInstance.getPlace();
-        console.log(place)
         if (place.geometry && place.geometry.location) {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
-          onChangeLocation(lat, lng)
+          const name = place.name ?? 'No name'
+          const address = place.formatted_address ?? 'No address'
+          setAddress({ name, address, lat, lng })
         }
       });
 
       setAutocomplete(autocompleteInstance);
     }
-  }, [autocomplete, placesLib, onChangeLocation]);
+  }, [autocomplete, placesLib, setAddress]);
 
   const resetInput = () => {
     if (inputRef.current) {
