@@ -1,36 +1,27 @@
-import { useEffect, useState } from "react"
 import { APIProvider, Map, Marker, useMarkerRef } from "@vis.gl/react-google-maps"
 import { AutocompleteInput } from "./AutocompleteInput"
 
+import { useAddressStore } from "../../store/address"
 import { API_KEY } from "../../const/env"
-import { INIT_LOCATION } from "../../const/const"
 
-import type { ILocation } from "../../interface/gps"
 
 export const MapComponent = () => {
 
-  const [location, setLocation] = useState<ILocation>({ lat: 0, lng: 0 })
-  const [markerRef] = useMarkerRef()
-
-  const onChangeLocation = (lat: number, lng: number) => {
-    setLocation({ lat, lng })
+  const addressStore = useAddressStore((state) => state.address)
+  const locationStore = {
+    lat: addressStore.lat,
+    lng: addressStore.lng
   }
-
-  useEffect(() => {
-    setLocation(INIT_LOCATION)
-  }, [])
-
+  const [markerRef] = useMarkerRef()
 
   return (
     <APIProvider apiKey={API_KEY}>
       <div className="bg-red w-3/4 h-full grid grid-rows-[50px,1fr] gap-2">
-        <AutocompleteInput
-          onChangeLocation={onChangeLocation}
-        />
+        <AutocompleteInput />
         <Map
           style={{ width: '100%', height: '100%', boxShadow: '1px 1px 32px -24px rgba(0,0,0,0.75)' }}
-          defaultCenter={INIT_LOCATION}
-          center={location}
+          defaultCenter={locationStore}
+          center={locationStore}
           defaultZoom={3}
           minZoom={12}
           zoomControl
@@ -38,8 +29,8 @@ export const MapComponent = () => {
           disableDefaultUI={true}
         >
           {
-            (location.lat && location.lng) && (
-              <Marker ref={markerRef} position={location} />
+            (locationStore.lat && locationStore.lng) && (
+              <Marker ref={markerRef} position={locationStore} />
             )
           }
         </Map>
