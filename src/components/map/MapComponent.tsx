@@ -21,9 +21,7 @@ export const MapComponent = () => {
         <Map
           style={{ width: '100%', height: '100%', boxShadow: '1px 1px 32px -24px rgba(0,0,0,0.75)' }}
           defaultCenter={locationStore}
-          center={locationStore}
-          defaultZoom={3}
-          minZoom={12}
+          defaultZoom={15}
           zoomControl
           gestureHandling={'greedy'}
           disableDefaultUI={true}
