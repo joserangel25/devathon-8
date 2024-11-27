@@ -1,6 +1,6 @@
 import {Card} from "../interface/index";
 
-const cardsURL = "https://673b2441339a4ce4451ad0d8.mockapi.io/cards"
+const cardsURL = "https://vivacious-elegance-production.up.railway.app/api/v1/christmas-cards"
 /*"http://localhost:8080/api/v1/christmas-cards/all";*/
 
 export const getCardsData = async () => {
