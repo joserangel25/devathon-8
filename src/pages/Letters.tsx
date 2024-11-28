@@ -6,7 +6,7 @@ export const Letters = () => {
   
   return (
     <>
-    <div className="container mx-auto bg-transparent h-max overflow-auto">
+    <div className="h-[44rem] grid bg-slate-400 overflow-scroll">
       <h1 className="text-2xl text-center p-2">Christmas Letters</h1>
       <table className="table-auto w-full mt-2 text-sm text-left">
         <thead className="bg-gray-300 font-medium">
@@ -17,7 +17,7 @@ export const Letters = () => {
           </tr>
         </thead>
         <tbody className="divide-y">
-          {cartas?.slice(0,17).map( carta => (
+          {cartas?.slice(0,20).map( carta => (
             <tr className=" hover:bg-orange-200" key={carta.id} >
               <td className="px-1 py-2 whitespace-nowrap">{carta.titleCard}</td>
               <td className="px-1 py-2 whitespace-nowrap">{carta.content}</td>

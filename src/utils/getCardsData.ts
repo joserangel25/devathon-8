@@ -1,7 +1,7 @@
 import {Card} from "../interface/index";
 
-const cardsURL = "https://vivacious-elegance-production.up.railway.app/api/v1/christmas-cards"
-/*"http://localhost:8080/api/v1/christmas-cards/all";*/
+const cardsURL = "https://673b2441339a4ce4451ad0d8.mockapi.io/cards"
+/*https://vivacious-elegance-production.up.railway.app/api/v1/christmas-cards*/
 
 export const getCardsData = async () => {
 	const data = await fetch(cardsURL)
