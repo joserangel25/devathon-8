@@ -1,7 +1,8 @@
 
 import { Route, Router } from 'wouter'
 import { LayoutMain } from './layouts/LayoutMain'
-import { Gps, Letters } from './pages'
+import { Gps, Letters, CookiesPage } from './pages'
+
 import './App.css'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Router>
           <Route path="/" component={Gps} />
           <Route path="/letters" component={Letters} />
+          <Route path="/cookies" component={CookiesPage} />
         </Router>
       </LayoutMain>
     </>
