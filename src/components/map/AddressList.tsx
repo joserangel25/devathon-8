@@ -1,9 +1,21 @@
+import { useEffect } from "react"
 import { AddressItem } from "./AddressItem"
 import { useAddressStore } from "../../store/address"
 import clsx from "clsx"
 
 export const AddressList = () => {
   const lastSearches = useAddressStore((state) => state.lastSearches)
+  const getSearcches = useAddressStore((state) => state.getSearches)
+  const isLoading = useAddressStore((state) => state.isLoading)
+
+  useEffect(() => {
+    const onLoadSearches = async () => {
+      //TODO: pendiente se solucion CORS 
+      // await getSearcches()
+    }
+
+    onLoadSearches()
+  }, [getSearcches])
 
   return (
     <dl
@@ -16,8 +28,14 @@ export const AddressList = () => {
         )
       }
     >
+      {/* TODO: Realizar cuando se de solucion CORS */}
+      {/* {
+        isLoading && (
+          <p className="text-center text-white text-md ">Cargando...</p>
+        )
+      } */}
       {
-        lastSearches.length === 0 && (
+        (lastSearches.length === 0) && (
           <p className="text-center text-white text-md ">No hay búsquedas aún.</p>
         )
       }

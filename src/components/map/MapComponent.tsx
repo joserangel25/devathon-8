@@ -8,6 +8,7 @@ import { API_KEY } from "../../const/env"
 export const MapComponent = () => {
 
   const addressStore = useAddressStore((state) => state.address)
+
   const locationStore = {
     lat: addressStore.lat,
     lng: addressStore.lng
@@ -28,7 +29,9 @@ export const MapComponent = () => {
         >
           {
             (locationStore.lat && locationStore.lng) && (
-              <Marker ref={markerRef} position={locationStore} />
+              <Marker
+                ref={markerRef}
+                position={locationStore} />
             )
           }
         </Map>
