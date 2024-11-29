@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { toast } from "react-toastify"
 import { getAddressesApi, setAddressApi } from "../utils/api"
 
 import { INIT_LOCATION } from "../const/const"
@@ -18,7 +19,8 @@ export const useAddressStore = create<IAddressStore>((set, get) => ({
   address: {
     name: '',
     address: '',
-    ...INIT_LOCATION
+    longitude: INIT_LOCATION.lng,
+    latitude: INIT_LOCATION.lat
   },
   isLoading: true,
   lastSearches: [],
@@ -26,28 +28,36 @@ export const useAddressStore = create<IAddressStore>((set, get) => ({
     const lastSearchesDb = await getAddressesApi()
     set({
       lastSearches: lastSearchesDb,
-      isLoading: false
+      isLoading: false,
+      address: lastSearchesDb[0]
     })
   },
   setAddress: async (address: IAddress) => {
     const state = get()
-    const newLastSearches = [...state.lastSearches, address]
-
-    //TODO: pendiente se solucion CORS
-    // const saveAddress = await setAddressApi(address)
-
-    // if (saveAddress.status !== 200) {
-    //   console.log(saveAddress.msg)
-    //   return
-    // }
-
-    if (newLastSearches.length > 5) {
-      newLastSearches.shift()
+    const lastSearches = state.lastSearches
+    const existAddress = lastSearches.find(addressTem => addressTem.address === address.address)
+    if (existAddress) {
+      set({ address })
+      return
     }
 
+    const newLastSearches = [address, ...lastSearches]
+    const saveAddress = await setAddressApi(address)
+
+    if (saveAddress.status !== 200) {
+      console.log(saveAddress.msg)
+      toast.error(saveAddress.msg, {
+        icon: false
+      })
+      return
+    }
+
+    if (newLastSearches.length > 5) {
+      newLastSearches.pop()
+    }
     set({
       address,
-      lastSearches: newLastSearches.reverse()
+      lastSearches: newLastSearches
     })
   }
 }))

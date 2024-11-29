@@ -20,15 +20,15 @@ export const AutocompleteInput = () => {
       autocompleteInstance.addListener('place_changed', () => {
         const place = autocompleteInstance.getPlace();
         if (place.geometry && place.geometry.location) {
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
+          const latitude = place.geometry.location.lat();
+          const longitude = place.geometry.location.lng();
           const name = place.name ?? 'No name'
           const address = place.formatted_address ?? 'No address'
-          setAddress({ name, address, lat, lng })
+          setAddress({ name, address, latitude, longitude })
           toast.success('🎅 Guardado en la base de datos 🎅', {
             icon: false
           })
-          map?.panTo({ lat, lng });
+          map?.panTo({ lat: latitude, lng: longitude });
         }
       });
 

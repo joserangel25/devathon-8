@@ -1,9 +1,11 @@
 import { URL_API_BACK } from "../const/env"
 import type { IAddress } from "../interface/gps"
+import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
+
 
 export const getAddressesApi = async () => {
   try {
-    const res = await fetch(`${URL_API_BACK}/address`)
+    const res = await fetch(`${URL_API_BACK}/addresses`)
     const lastSearchesDb = await res.json()
     return lastSearchesDb
   } catch (error) {
@@ -14,7 +16,7 @@ export const getAddressesApi = async () => {
 
 export const setAddressApi = async (address: IAddress) => {
   try {
-    const res = await fetch(`${URL_API_BACK}/address`, {
+    const res = await fetch(`${URL_API_BACK}/addresses`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,8 +35,7 @@ export const setAddressApi = async (address: IAddress) => {
       msg: "Error al guardar la búsqueda"
     }
   }
-}import { URL_API_BACK } from "../const/env"
-import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
+}
 
 export const getCookiesAndCaloriesDB = async (): Promise<ICookieAndCalorieResponse> => {
   const res = await fetch(`${URL_API_BACK}/counter-calories`)
