@@ -1,4 +1,7 @@
+import { ToastContainer } from 'react-toastify';
 import { Header } from "../components/shared/Header"
+
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   children: React.ReactNode
@@ -13,6 +16,11 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
         <div className="absolute top-0 left-0 w-full h-full z-10 p-4 ">
           <Header />
           {children}
+          <ToastContainer
+            autoClose={2000}
+            theme='dark'
+          />
+
         </div>
 
         <picture className="absolute -bottom-10 -left-10 z-10 ">
@@ -23,7 +31,8 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
           <img src="./snowman.svg" alt="Imagen del muñeco de nieve" className="w-32 h-32" />
         </picture>
       </div>
-      <div></div>
+      <div>
+      </div>
     </div>
   )
 }

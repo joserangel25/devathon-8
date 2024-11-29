@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useAddressStore } from '../../store/address';
+import { toast } from 'react-toastify';
 
 export const AutocompleteInput = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -13,18 +14,21 @@ export const AutocompleteInput = () => {
   useEffect(() => {
     if (inputRef.current && !autocomplete && placesLib) {
       const autocompleteInstance = new placesLib.Autocomplete(inputRef.current!, {
-        fields: ['formatted_address', 'geometry', 'name', 'place_id', 'types', 'icon'],
+        fields: ['formatted_address', 'geometry', 'name', 'place_id'],
       });
 
       autocompleteInstance.addListener('place_changed', () => {
         const place = autocompleteInstance.getPlace();
         if (place.geometry && place.geometry.location) {
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
+          const latitude = place.geometry.location.lat();
+          const longitude = place.geometry.location.lng();
           const name = place.name ?? 'No name'
           const address = place.formatted_address ?? 'No address'
-          map?.panTo({ lat, lng });
-          setAddress({ name, address, lat, lng })
+          setAddress({ name, address, latitude, longitude })
+          toast.success('🎅 Guardado en la base de datos 🎅', {
+            icon: false
+          })
+          map?.panTo({ lat: latitude, lng: longitude });
         }
       });
 
