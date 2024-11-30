@@ -6,6 +6,13 @@ export interface ILocation {
 export interface IAddress {
   name: string,
   address: string,
-  lat: number,
-  lng: number
+  latitude: number,
+  longitude: number
+}
+
+export interface IAddressResponse {
+  name: string,
+  address: string,
+  latitude: string,
+  longitude: string
 }
