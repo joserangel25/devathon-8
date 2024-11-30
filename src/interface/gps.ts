@@ -9,3 +9,10 @@ export interface IAddress {
   latitude: number,
   longitude: number
 }
+
+export interface IAddressResponse {
+  name: string,
+  address: string,
+  latitude: string,
+  longitude: string
+}
