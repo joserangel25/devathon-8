@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useFetch } from "../hooks/useFetch"
 
 
 export const Letters = () => {
   const cartas = useFetch();
+  const [open, setOpen] =useState(false)
   
   return (
     <>
@@ -14,7 +16,18 @@ export const Letters = () => {
             <div key={carta.id} className='p-4'>
               <div  className='tracking-wide text-center text-sm text-indigo-500 font-semibold'>{carta.titleCard}</div>
               <p className='mt-1 text-slate-500'>{carta.date_read}</p>
-              <button className='bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded'>Abrir carta</button>
+              <button 
+                className='bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded'
+                onClick={()=>setOpen(true)}>
+                Abrir carta
+              </button>
+              <Modal open={open} onClose={()=>setOpen(false)}>
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-2xl">{carta.titleCard}</h2>
+                  <p>{carta.content}</p>
+                  <hr className="border-t-solid border-1 border-gray-50"/>
+                </div>
+              </Modal>
             </div>
           </div>
         ))}
