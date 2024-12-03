@@ -1,5 +1,29 @@
+interface ModalProps {
+  isOpen: boolean;
+  title:  string;
+  description: string;
+  onClose: () => void;
+}
 
-type propTypes={
+const Modal: React.FC<ModalProps> = ({ isOpen, title, description, onClose }) => {
+  if (!isOpen) return null;
+
+  return(
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-1/2">
+        <h2 className="text-lg font-bold mb-4">{title}</h2>
+        <p className="text-gray-700">{description}</p>
+        <button
+          className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          onClick={onClose}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  )
+}
+/*type propTypes={
   open:boolean;
   onClose: ()=>void;
   children: React.ReactNode;
@@ -25,6 +49,6 @@ const Modal:React.FC<propTypes> = ({open, onClose, children}) => {
       </div>
     </div>
   )
-}
+}*/
 
 export default Modal
