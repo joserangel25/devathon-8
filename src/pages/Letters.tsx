@@ -20,10 +20,11 @@ export const Letters = () => {
               <button 
                 className='bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded'
                 onClick={()=>setOpen(true)}>
-                Abrir carta
+                Abrir carta {carta.id}
               </button>
-              <Modal open={open} onClose={()=>setOpen(false)}>
+              <Modal open={open} onClose={()=>setOpen(false)} >
                 <div className="flex flex-col gap-4">
+                  <p>{carta.id}</p>
                   <h2 className="text-2xl">{carta.titleCard}</h2>
                   <p>{carta.content}</p>
                   <hr className="border-t-solid border-1 border-gray"/>

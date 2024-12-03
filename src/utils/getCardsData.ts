@@ -6,6 +6,6 @@ const cardsURL = "https://vivacious-elegance-production.up.railway.app/api/v1/ch
 export const getCardsData = async () => {
 	const data = await fetch(cardsURL)
 	const cards:Card[] = await data.json()
-	console.log(cards)
+	//console.log(cards)
   return cards
 }
