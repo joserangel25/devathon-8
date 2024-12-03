@@ -1,73 +1,82 @@
 import { useState, useEffect } from "react";
-import { getCookiesAndCaloriesDB, setCookiesDB } from "../utils/api";
+import { useCookiesStore } from "../store/cookies";
 import { InputCookie } from "../components/cookies/InputCookie";
-import { CALORIES_PER_COOKIE } from "../const/const";
 import { Sidebar } from "../components/cookies/Sidebar";
+import { CALORIES_PER_COOKIE } from "../const/const";
+import { FooterCookies } from "../components/cookies/FooterCookies";
+import { toast } from "react-toastify";
 
 export const CookiesPage = () => {
-
-  const [totalCookies, setTotalCookies] = useState(0)
+  const cookies = useCookiesStore((state) => state.cookies)
+  const calories = useCookiesStore((state) => state.calories)
+  const getAllCookiesDB = useCookiesStore((state) => state.getAllCookiesDB)
+  const addCookiesDb = useCookiesStore((state) => state.addCookiesDb)
   const [isLoading, setIsLoading] = useState(true)
 
-  const addCookies = async (quantity: number) => {
-    setTotalCookies(totalCookies + quantity)
-    await setCookiesDB({
-      quantityCookies: quantity,
-      quantityCalories: CALORIES_PER_COOKIE * quantity
+  const onAddCookies = async (quantity: number) => {
+    addCookiesDb(quantity, CALORIES_PER_COOKIE * quantity)
+    toast.success("🍪 ¡Nuevas galletas añadidas! 🎅", {
+      icon: false
     })
   }
-  const totalCalories = CALORIES_PER_COOKIE * totalCookies
 
   useEffect(() => {
     const getCookiesDB = async () => {
-      const cookies = await getCookiesAndCaloriesDB()
-      setTotalCookies(cookies.quantityTotalCookies)
+      await getAllCookiesDB()
       setIsLoading(false)
-
     }
     getCookiesDB()
-  }, [])
+  }, [getAllCookiesDB])
 
 
   return (
-    <div className="w-full h-full pb-12 flex gap-3">
-      <Sidebar />
+    <section className="w-full h-full pb-12">
+      <div className=" flex gap-3">
+        <Sidebar />
 
-      <div id="right" className="flex-1 ">
-        <div className="flex items-center gap-2 justify-center w-full min-h-7">
-          <h1 className=" text-center text-3xl font-bold">
-            Total navigalletas consumidas:
-          </h1>
-          {
-            isLoading ? (
-              <p className="text-slate-300 animate-pulse font-bold text-4xl">X</p>
-            ) : (
-              <span className="font-bold text-4xl text-primary ">{totalCookies}</span>
-            )
-          }
+        <div id="right" className="flex-1 flex flex-col items-center justify-center w-full h-full">
+          <div className="flex items-center gap-2 justify-center w-full min-h-7">
+            <h1 className=" text-center text-2xl font-bold">
+              Total navigalletas consumidas:
+            </h1>
+            {
+              isLoading ? (
+                <p className="text-slate-300 animate-pulse font-bold text-4xl">X</p>
+              ) : (
+                <span className="font-bold text-2xl text-primary ">{cookies}</span>
+              )
+            }
+          </div>
+
+          <div className="flex items-center gap-2 justify-center w-full min-h-7">
+            <h1 className=" text-center text-2xl font-bold">
+              Total jojocalorias consumidas:
+            </h1>
+            {
+              isLoading ? (
+                <p className="text-slate-300 animate-pulse font-bold text-2xl">X</p>
+              ) : (
+                <span className="font-bold text-2xl text-primary ">{calories}</span>
+              )
+            }
+          </div>
+
+
+
+          <InputCookie
+            addCookies={onAddCookies}
+          />
+
+          <picture className="block w-full">
+            <img src="/images/santa-eat.png" className="mx-auto drop-shadow-xl" alt="Imagen de Santa comiendo galleta" />
+          </picture>
         </div>
-
-        <div className="flex items-center gap-2 justify-center w-full min-h-7">
-          <h1 className=" text-center text-2xl font-bold">
-            Total jojolorias consumidas:
-          </h1>
-          {
-            isLoading ? (
-              <p className="text-slate-300 animate-pulse font-bold text-4xl">X</p>
-            ) : (
-              <span className="font-bold text-3xl text-primary ">{totalCalories}</span>
-            )
-          }
-        </div>
-
-        <InputCookie
-          addCookies={addCookies}
-        />
-
-        <picture className="block w-full">
-          <img src="/images/santa-eat.png" className="mx-auto drop-shadow-xl" alt="Imagen de Santa comiendo galleta" />
-        </picture>
       </div>
-    </div>
+
+      <FooterCookies />
+    </section>
+
+
+
   )
 }

@@ -17,7 +17,7 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
           <Header />
           {children}
           <ToastContainer
-            autoClose={2000}
+            autoClose={3000}
             theme='dark'
           />
 
