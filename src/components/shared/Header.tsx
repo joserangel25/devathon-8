@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter"
 import { MENU_LIST } from "../../const/const"
+import { PlaySound } from "./PlaySound"
 
 
 export const Header = () => {
@@ -12,16 +13,19 @@ export const Header = () => {
           <h2 className="text-3xl font-bold -ml-2">Santa<span className="text-primary">Utils</span></h2>
         </picture>
       </Link>
-      <nav className="flex gap-4 ">
-        {
-          MENU_LIST.map(({ path, name }) => (
-            <Link
-              key={path}
-              href={path}
-              className={`font-medium text-xl ${location === path && 'text-primary'}`}>{name}</Link>
-          ))
-        }
-      </nav>
+      <div className="flex items-center gap-2">
+        <PlaySound />
+        <nav className="flex gap-4 ">
+          {
+            MENU_LIST.map(({ path, name }) => (
+              <Link
+                key={path}
+                href={path}
+                className={`font-medium text-xl ${location === path && 'text-primary'}`}>{name}</Link>
+            ))
+          }
+        </nav>
+      </div>
     </div>
   )
 }
