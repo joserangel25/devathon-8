@@ -11,3 +11,15 @@
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
+
+* {
+  cursor: url('/icons/icono.png'), auto;
+}
+
+button, input, a {
+  cursor: url('/icons/icono.png'), auto;
+}
+
+button:hover, input:hover, a:hover {
+  cursor: url('/icons/icono.png'), auto;
+}
