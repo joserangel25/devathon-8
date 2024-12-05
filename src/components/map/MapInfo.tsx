@@ -5,8 +5,8 @@ import { useAddressStore } from "../../store/address"
 export const MapInfo = () => {
   const addressStore = useAddressStore((state) => state.address)
   const locationStore = {
-    lat: addressStore.lat,
-    lng: addressStore.lng
+    lat: addressStore.latitude,
+    lng: addressStore.longitude
   }
   return (
     <InfoWindow
