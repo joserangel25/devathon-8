@@ -9,7 +9,9 @@ interface Props {
 
 export const LayoutMain: React.FC<Props> = ({ children }) => {
   return (
-    <div className="bg-christmas min-h-screen  w-full  grid grid-rows-[40px,1fr,40px]  px-12">
+    <div
+      className="bg-christmas min-h-screen w-full grid grid-rows-[40px,1fr,40px] px-12"
+    >
       <div></div>
       <div className="relative bg-[url('./snow2-min.png')] container max-h-[1400px] mx-auto">
         <div className="bg-white absolute opacity-50 rounded-xl left-0 top-0 w-full h-full z-0"></div>
