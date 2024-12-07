@@ -11,15 +11,17 @@ export const MapComponent = () => {
 
   const locationStore = useMemo(() => (
     {
-      lat: addressStore.latitude,
-      lng: addressStore.longitude
+      lat: addressStore?.latitude,
+      lng: addressStore?.longitude
     }
   ), [addressStore])
   const [markerRef] = useMarkerRef()
 
 
   useEffect(() => {
-    map?.panTo(locationStore);
+    if (locationStore.lat) {
+      map?.panTo(locationStore);
+    }
   }, [locationStore, map])
 
 

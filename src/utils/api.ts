@@ -1,5 +1,5 @@
 import { URL_API_BACK } from "../const/env"
-import type { IAddress } from "../interface/gps"
+import type { IAddress, IAddressResponse } from "../interface/gps"
 import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
 
 
@@ -7,7 +7,12 @@ export const getAddressesApi = async () => {
   try {
     const res = await fetch(`${URL_API_BACK}/addresses`)
     const lastSearchesDb = await res.json()
-    return lastSearchesDb
+    return lastSearchesDb.map((address: IAddressResponse) => ({
+      name: address.name,
+      address: address.address,
+      longitude: Number(address.longitude),
+      latitude: Number(address.latitude)
+    }))
   } catch (error) {
     console.log(error)
     return []
