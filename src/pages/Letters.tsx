@@ -21,6 +21,15 @@ export const Letters = () => {
 
   const handleCloseModal =() => {setSelectCard(null)};
 
+  const handleToggleCheck = () => {
+    if (selectCard) {
+      const updateCard = cartas.map((card) => 
+      card.id === selectCard.id ? {...card, wasRead: !card.wasRead } : card);
+      cartas(updateCard); //aqui es donde debe mandar la actualizacion al campo wasRead
+      setSelectCard({ ...selectCard, wasRead: !selectCard.wasRead});
+    }
+  }
+
   //const [open, setOpen] =useState(false)
   
   return (
@@ -72,6 +81,8 @@ export const Letters = () => {
           isOpen = {!!selectCard}
           title={selectCard.titleCard}
           description={selectCard.content}
+          checked={selectCard.wasRead}
+          onToggleCheck={handleToggleCheck}
           onClose={handleCloseModal}
         />
       )}
