@@ -10,7 +10,7 @@ li {
 
 .bg-christmas {
   /* background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); */
-  background-image: url('./gradient.png');
+  background-image: url('./images/gradient.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
