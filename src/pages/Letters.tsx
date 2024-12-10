@@ -35,7 +35,7 @@ export const Letters = () => {
   return (
     <>
     <div className="h-full flex flex-col bg-transparent overflow-scroll">
-      <h1 className="text-2xl text-center p-1">Christmas Letters</h1>
+      <h1 className="text-2xl text-center p-1">Cartas de Navidad</h1>
       <div className="w-full grid gap-2 grid-cols-3 place-content-between bg-transparent md:max-w-full md:grid-cols-5 ms:grid-cols-2">
         {cartas?.slice(0,20).map( card => (
           <Cards

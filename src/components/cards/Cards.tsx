@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card } from '../../interface'
 
 interface CardProps{
     id: number;
@@ -17,7 +16,7 @@ export const Cards: React.FC<CardProps> = ({id, titleCard, content, date_read, w
         <p className='text-gray-600'>{date_read}</p>
         <div>
           <span
-            className={`inline-block w-4 h-4 mr-2 rounded-full ${wasRead ? "bg-green-500":"bg-green-300"}`}
+            className={`inline-block w-4 h-4 mr-2 rounded-full ${wasRead ? "bg-red-500":"bg-green-300"}`}
           ></span>
           <span>{wasRead? "Leido":"Sin leer"}</span>
         </div>
