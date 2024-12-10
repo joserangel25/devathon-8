@@ -3,13 +3,13 @@ import React from 'react'
 interface CardProps{
     id: number;
     titleCard: string;
-    content: string;
+    content?: string;
     date_read: string;
     wasRead: boolean;
     onOpenModal: (id: number) => void;
 }
 
-export const Cards: React.FC<CardProps> = ({id, titleCard, content, date_read, wasRead, onOpenModal}) => {
+export const Cards: React.FC<CardProps> = ({id, titleCard, date_read, wasRead, onOpenModal}) => {
   return (
     <div className='bg-green-500 shadow-md rounded-lg p-4'>
         <h2 className='text-lg font-semibold'>{titleCard}</h2>

@@ -47,33 +47,6 @@ export const Letters = () => {
             wasRead={card.wasRead}
             onOpenModal={handlOpenModal}
           />
-          //<div className='max-w-md mx-auto bg-gradient-to-r from-cyan-100 from-10% via-sky-100 via-30% to-red-100 to to-90% rounded-xl shadow-md md:max-w-2xl md:flex'> {/*se le quito el */}
-            //<div key={carta.id} className='p-4'>
-              //<div  className='tracking-wide text-center text-sm text-indigo-500 font-semibold'>{carta.titleCard}</div>
-              //<p className='mt-1 text-slate-500'>{carta.date_read}</p>
-              //<button 
-                //className='bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded'
-                //onClick={()=>setOpen(true)}>
-                //</div>Abrir carta {carta.id}
-              //</button>
-              //<Modal open={open} onClose={()=>setOpen(false)} >
-                //<div className="flex flex-col gap-4">
-                  //<p>{carta.id}</p>
-                  //<h2 className="text-2xl">{carta.titleCard}</h2>
-                  //<p>{carta.content}</p>
-                  //<hr className="border-t-solid border-1 border-gray"/>
-                  //<div className="flex flex-row justify-center">
-                    //<button 
-                      //className="border border-neutral-300 rounded-lg py-1.5 px-10 bg-blue-500 hover:bg-blue-600 text-white"
-                      //onClick={()=>setOpen(false)}
-                    //>
-                      //</div>Close
-                    //</div></button>
-                  //</div>
-                //</div>
-              //</></Modal>
-            //</div>
-          //</div>*/
         ))}
       </div>
       {selectCard && (
