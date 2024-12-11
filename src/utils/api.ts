@@ -2,6 +2,7 @@ import { URL_API_BACK } from "../const/env"
 import type { IAddress, IAddressResponse } from "../interface/gps"
 import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
 import type { IChild, IChildPost } from "../interface/child"
+import { ILetter } from "../interface/letter"
 
 // Addresses
 export const getAddressesApi = async () => {
@@ -149,5 +150,20 @@ export const deleteChildApi = async (idChild: number) => {
       error: true,
       msg: "👶 Error al eliminar. Intentalo de nuevo."
     }
+  }
+}
+
+// Letters
+// const cardsURL = "https://vivacious-elegance-production.up.railway.app/api/v1/christmas-cards"
+/* https://673b2441339a4ce4451ad0d8.mockapi.io/cards*/
+
+export const getLettersDb = async () => {
+  try {
+    const data = await fetch(`${URL_API_BACK}/christmas-cards`)
+    const letters: ILetter[] = await data.json()
+    return letters
+  } catch (error) {
+    console.log(error)
+    return []
   }
 }
