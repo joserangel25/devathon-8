@@ -14,6 +14,10 @@ export const MENU_LIST = [
   {
     name: 'Niños',
     path: '/childs'
+  },
+  {
+    name: 'Renos',
+    path: '/reindeers'
   }
 ]
 
