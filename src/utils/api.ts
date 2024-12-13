@@ -154,9 +154,6 @@ export const deleteChildApi = async (idChild: number) => {
 }
 
 // Letters
-// const cardsURL = "https://vivacious-elegance-production.up.railway.app/api/v1/christmas-cards"
-/* https://673b2441339a4ce4451ad0d8.mockapi.io/cards*/
-
 export const getLettersDb = async () => {
   try {
     const data = await fetch(`${URL_API_BACK}/christmas-cards`)
@@ -165,5 +162,25 @@ export const getLettersDb = async () => {
   } catch (error) {
     console.log(error)
     return []
+  }
+}
+
+export const checkLetterRead = async (id: number) => {
+  try {
+    const res = await fetch(`${URL_API_BACK}/christmas-cards/${id}`, {
+      method: 'PUT',
+    })
+    const data = await res.text()
+    console.log(data)
+    return {
+      error: false,
+      msg: "Carta leída 🎅",
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      error: true,
+      msg: "🎅 Error al leer la carta. Intentalo de nuevo."
+    }
   }
 }
