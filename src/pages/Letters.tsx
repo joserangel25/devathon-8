@@ -1,38 +1,27 @@
-import { useFetch } from "../hooks/useFetch"
-
+import { useEffect } from "react";
+import { CardLetter } from "../components/letters/CardLetter";
+import { useLettersStore } from "../store/letters";
 
 export const Letters = () => {
-  const cartas = useFetch();
-  
+  const lettersList = useLettersStore((state) => state.lettersList)
+  const getAllLetterList = useLettersStore((state) => state.getAllLetterList)
+
+  useEffect(() => {
+    getAllLetterList()
+  }, [getAllLetterList])
+
   return (
-    <>
-    <div className="container mx-auto bg-transparent h-max overflow-auto">
-      <h1 className="text-2xl text-center p-2">Christmas Letters</h1>
-      <table className="table-auto w-full mt-2 text-sm text-left">
-        <thead className="bg-gray-300 font-medium">
-          <tr className="border-b border-orange-300">
-            <th className="py-2 pr-3">Title Card</th>
-            <th className="py-2 pr-3">Content</th>
-            <th className="py-2 pr-3">Was Read</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y">
-          {cartas?.slice(0,17).map( carta => (
-            <tr className=" hover:bg-orange-200" key={carta.id} >
-              <td className="px-1 py-2 whitespace-nowrap">{carta.titleCard}</td>
-              <td className="px-1 py-2 whitespace-nowrap">{carta.content}</td>
-              <td className="px-1 py-2 whitespace-nowrap">
-                <span className={`px-3 py-2 rounded-full font-semibold text-xs ${carta.wasRead ? "text-green-600" : "text-blue-600 bg-blue-50"}`}>
-                  {carta.wasRead}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-        
+    <div className="w-full h-full pt-2 pb-12">
+      <h1 className="text-2xl text-center font-bold mb-2">Correo de <span className="text-primary">Santa 🎅</span></h1>
+      <div
+        className="h-[calc(100%-35px)] grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden overflow-y-auto">
+        {lettersList.map(letter => (
+          <CardLetter
+            key={letter.id}
+            letter={letter}
+          />
+        ))}
+      </div>
     </div>
-    </>
-    
   )
 }
