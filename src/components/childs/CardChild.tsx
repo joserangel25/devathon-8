@@ -41,7 +41,7 @@ export const CardChild: React.FC<Props> = ({ child }) => {
             title="Eliminar niño"
             onClick={() => {
               setDeleteChildId(child.idChild!)
-              setIsModalOpen(true)
+              setIsModalOpen(true, 'childs')
             }}
           >
             <svg

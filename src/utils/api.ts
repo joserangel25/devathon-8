@@ -2,6 +2,7 @@ import { URL_API_BACK } from "../const/env"
 import type { IAddress, IAddressResponse } from "../interface/gps"
 import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
 import type { IChild, IChildPost } from "../interface/child"
+import { ILetter } from "../interface/letter"
 
 // Addresses
 export const getAddressesApi = async () => {
@@ -148,6 +149,38 @@ export const deleteChildApi = async (idChild: number) => {
     return {
       error: true,
       msg: "👶 Error al eliminar. Intentalo de nuevo."
+    }
+  }
+}
+
+// Letters
+export const getLettersDb = async () => {
+  try {
+    const data = await fetch(`${URL_API_BACK}/christmas-cards`)
+    const letters: ILetter[] = await data.json()
+    return letters
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+
+export const checkLetterRead = async (id: number) => {
+  try {
+    const res = await fetch(`${URL_API_BACK}/christmas-cards/${id}`, {
+      method: 'PUT',
+    })
+    const data = await res.text()
+    console.log(data)
+    return {
+      error: false,
+      msg: "Carta leída 🎅",
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      error: true,
+      msg: "🎅 Error al leer la carta. Intentalo de nuevo."
     }
   }
 }

@@ -1,15 +1,11 @@
 import { useEffect } from "react"
-import { createPortal } from "react-dom"
 import { FormChild } from "../components/childs/FormChild"
 import { ListChild } from "../components/childs/ListChild"
-import { Modal } from "../components/shared/Modal"
 import { StactsChilds } from "../components/childs/StactsChilds"
 import { useChildStore } from "../store/childs"
-import { useModalStore } from "../store/modal"
 
 export const ChildsPage = () => {
   const getAllChilds = useChildStore((state) => state.getAllChilds)
-  const isModalOpen = useModalStore((state) => state.isModalOpen)
 
   useEffect(() => {
     getAllChilds()
@@ -30,13 +26,6 @@ export const ChildsPage = () => {
         </div>
 
       </div>
-      {
-        isModalOpen && createPortal(
-          <Modal />,
-          document.getElementById('popup-modal')!
-        )
-      }
-
     </>
   )
 }

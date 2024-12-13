@@ -1,7 +1,10 @@
+import { createPortal } from 'react-dom';
 import { ToastContainer } from 'react-toastify';
+import { useModalStore } from '../store/modal';
 import { Header } from '../components/shared/Header'
-import bg from '/images/gradient.png'
+import { ModalWrapped } from '../components/shared/modal/ModalWrapped';
 
+import bg from '/images/gradient.png'
 import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
@@ -9,6 +12,7 @@ interface Props {
 }
 
 export const LayoutMain: React.FC<Props> = ({ children }) => {
+  const isModalOpen = useModalStore((state) => state.isModalOpen)
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}
@@ -37,6 +41,13 @@ export const LayoutMain: React.FC<Props> = ({ children }) => {
       </div>
       <div>
       </div>
+
+      {
+        isModalOpen && createPortal(
+          <ModalWrapped />,
+          document.getElementById('popup-modal')!
+        )
+      }
     </div>
   )
 }
