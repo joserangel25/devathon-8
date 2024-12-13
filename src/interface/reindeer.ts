@@ -11,3 +11,8 @@ export interface IAlignment {
   left: IReindeer[];
   right: IReindeer[];
 }
+
+export interface IWeather {
+  temperature: string;
+  condition: string;
+}

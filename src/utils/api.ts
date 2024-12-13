@@ -3,6 +3,7 @@ import type { IAddress, IAddressResponse } from "../interface/gps"
 import type { ICookieAndCalorieResponse, ICookieAndCalorieRequest } from "../interface/api"
 import type { IChild, IChildPost } from "../interface/child"
 import { ILetter } from "../interface/letter"
+import { IWeather } from "../interface/reindeer"
 
 // Addresses
 export const getAddressesApi = async () => {
@@ -181,6 +182,24 @@ export const checkLetterRead = async (id: number) => {
     return {
       error: true,
       msg: "🎅 Error al leer la carta. Intentalo de nuevo."
+    }
+  }
+}
+
+// Weather
+export const getWeatherApi = async () => {
+  try {
+    const res = await fetch(`${URL_API_BACK}/weather`)
+    const data: IWeather = await res.json()
+    return {
+      error: false,
+      weather: data
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      error: true,
+      weather: null
     }
   }
 }
