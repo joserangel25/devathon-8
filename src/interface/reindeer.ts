@@ -5,3 +5,9 @@ export interface IReindeer {
   name: string
 }
 
+export interface IAlignment {
+  id: number;
+  name: string;
+  left: IReindeer[];
+  right: IReindeer[];
+}

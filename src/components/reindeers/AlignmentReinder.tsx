@@ -1,15 +1,18 @@
 import { useState } from "react"
 import clsx from "clsx"
 import { toast } from "react-toastify"
-import { ALIGNMENTS, REINDEERS } from "../../const/reindeers"
-import { AlingmentReindeer, IReindeer } from "../../interface/reindeer"
+import { ALIGNMENTS_LIST, REINDEERS } from "../../const/reindeers"
+import { AlingmentReindeer, IAlignment, IReindeer } from "../../interface/reindeer"
 
 
 
 export const AlignmentReinder = () => {
   const [reindeers, setReindeers] = useState<IReindeer[]>(REINDEERS)
+  const [alignments, setAlignments] = useState(ALIGNMENTS_LIST)
+  const [nameAlignment, setNameAlignment] = useState('')
   const [leftAlingment, setLeftAlingment] = useState<IReindeer[]>([])
   const [rightAlingment, setRightAlingment] = useState<IReindeer[]>([])
+  const [alignmentEdit, setAlignmentEdit] = useState<IAlignment | null>(null)
 
   const handleOnDrag = (e: React.DragEvent, reindeer: IReindeer) => {
     e.dataTransfer.setData('reindeer', JSON.stringify(reindeer))
@@ -59,9 +62,62 @@ export const AlignmentReinder = () => {
     e.preventDefault()
   }
 
+  const onSubmitAlignment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!nameAlignment) {
+      toast.error('El nombre de la alineación es obligatorio')
+      return
+    }
+
+    if (!alignmentEdit) {
+
+      setAlignments([
+        ...alignments,
+        {
+          id: Math.floor(Math.random() * 1000),
+          name: nameAlignment,
+          left: leftAlingment,
+          right: rightAlingment
+        }
+      ])
+    } else {
+      const alignmentEdited = {
+        id: alignmentEdit.id,
+        name: nameAlignment,
+        left: leftAlingment,
+        right: rightAlingment
+      }
+      setAlignments(prevState => prevState.map((aligmentTemp) => aligmentTemp.id === alignmentEdit.id ? alignmentEdited : aligmentTemp))
+    }
+
+    setNameAlignment('')
+    setLeftAlingment([])
+    setRightAlingment([])
+    setReindeers(REINDEERS)
+    toast.success('Alineación guardada 🎅', {
+      icon: false
+    })
+  }
+
+  const onEditAligment = (alignment: IAlignment) => {
+    setReindeers([])
+    setAlignmentEdit(alignment)
+    setNameAlignment(alignment.name)
+    setLeftAlingment(alignment.left)
+    setRightAlingment(alignment.right)
+  }
+
+  const onDeleteAligment = (id: number) => {
+    setAlignments(prevState => prevState.filter(aligmentTemp => aligmentTemp.id !== id))
+    toast.success('Alineación eliminada 🎅', {
+      icon: false
+    })
+  }
+
   return (
     <div
-      className="flex flex-col gap-2 0"
+      className="flex flex-col gap-2 overflow-y-auto"
     >
       <div className="flex gap-1 min-h-20"
         onDrop={(e) => handleOnDrop(e, 'alls')}
@@ -87,7 +143,7 @@ export const AlignmentReinder = () => {
         {
           !reindeers.length && (
             <form
-              // onSubmit={onSubmit} 
+              onSubmit={onSubmitAlignment}
               className="fade-in w-full flex gap-2 items-center">
               <div className="relative z-0 flex-1 group">
                 <input
@@ -95,8 +151,8 @@ export const AlignmentReinder = () => {
                   id="name_alignment"
                   autoComplete="off"
                   className="block py-2.5 px-0 w-full min-w-[220px] text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer" placeholder=" "
-                  // value={quantityCookies === 0 ? "" : quantityCookies}
-                  // onChange={(e) => setQuantityCookie(Number(e.target.value))}
+                  value={nameAlignment}
+                  onChange={(e) => setNameAlignment(e.target.value)}
                   required />
 
                 <label htmlFor="name_alignment" className="peer-focus:font-medium absolute text-md text-gray-600 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">¿Nombre para esta alineación?</label>
@@ -105,7 +161,6 @@ export const AlignmentReinder = () => {
               <button
                 type="submit"
                 className="text-white bg-primary hover:bg-green-900 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:cursor-not-allowed disabled:bg-slate-400 disabled:opacity-50 transition-all duration-150"
-              // disabled={(maxAllowedCookies === cookies && cookies !== 0)}
               >Guardar 🫎</button>
             </form>
 
@@ -172,7 +227,7 @@ export const AlignmentReinder = () => {
       </div>
       <div className="grid md:grid-cols-2 gap-3 h-full mt-3 rounded-sm">
         {
-          ALIGNMENTS.map((alignment) => (
+          alignments.reverse().map((alignment) => (
             <div
               key={alignment.id}
               className="bg-green-800 text-white p-3 rounded-lg self-start"
@@ -180,13 +235,39 @@ export const AlignmentReinder = () => {
               <div className="flex justify-between items-center">
                 <p className="font-bold text-xl text-yellow-500">{alignment.name}</p>
 
-                <button>Edit</button>
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => onEditAligment(alignment)}
+                    title="Editar alineación"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      className="text-gray-300"
+                      fill="currentColor"><path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path></svg>
+                  </button>
+
+                  <button
+                    title="Eliminar alineación"
+                    onClick={() => onDeleteAligment(alignment.id)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      className="text-red-600"
+                      fill="currentColor"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg>
+                  </button>
+                </div>
               </div>
               <h4 className="font-bold ">Izquierda 🫎🎅:
-                <span className="font-normal"> {alignment.left.map(reindeer => reindeer).join(', ')}</span>
+                <span className="font-normal"> {alignment.left.map(reindeer => reindeer.name).join(', ')}</span>
               </h4>
               <h4 className="font-bold ">Derecha 🫎🎅:
-                <span className="font-normal"> {alignment.right.map(reindeer => reindeer).join(', ')}</span> </h4>
+                <span className="font-normal"> {alignment.right.map(reindeer => reindeer.name).join(', ')}</span> </h4>
             </div>
           ))
         }

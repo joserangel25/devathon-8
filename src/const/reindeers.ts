@@ -1,4 +1,4 @@
-import { IReindeer } from "../interface/reindeer";
+import { IAlignment, IReindeer } from "../interface/reindeer";
 
 export const REINDEERS_LIST = [
   {
@@ -94,23 +94,85 @@ export const REINDEERS: IReindeer[] = [
   },
 ]
 
-export const ALIGNMENTS = [
+export const ALIGNMENTS_LIST: IAlignment[] = [
   {
     id: 1,
     name: "Para mucha nieve",
-    left: ["Comet", "Prancer", "Vixen", "Blitzen"],
-    right: ["Dasher", "Rudolf", "Donner", "Dancer"]
+    left: [
+      {
+        id: 1,
+        name: 'Rudolf',
+      },
+      {
+        id: 2,
+        name: 'Prancer',
+      },
+      {
+        id: 3,
+        name: 'Vixen',
+      },
+      {
+        id: 4,
+        name: 'Blitzen',
+      }
+    ],
+    right: [
+      {
+        id: 5,
+        name: 'Dasher'
+      },
+      {
+        id: 6,
+        name: 'Comet'
+      },
+      {
+        id: 7,
+        name: 'Donner'
+      },
+      {
+        id: 8,
+        name: 'Dancer'
+      }
+    ]
   },
   {
     id: 2,
     name: "Más rapidez",
-    left: ["Rudolf", "Prancer", "Vixen", "Dasher"],
-    right: ["Blitzen", "Comet", "Donner", "Dancer"]
-  },
-  // {
-  //   id: 3,
-  //   name: "Más rapidez",
-  //   left: ["Rudolf", "Prancer", "Vixen", "Dasher"],
-  //   right: ["Blitzen", "Comet", "Donner", "Dancer"]
-  // }
+    right: [
+      {
+        id: 1,
+        name: 'Rudolf',
+      },
+      {
+        id: 2,
+        name: 'Prancer',
+      },
+      {
+        id: 3,
+        name: 'Vixen',
+      },
+      {
+        id: 4,
+        name: 'Blitzen',
+      }
+    ],
+    left: [
+      {
+        id: 5,
+        name: 'Dasher'
+      },
+      {
+        id: 6,
+        name: 'Comet'
+      },
+      {
+        id: 7,
+        name: 'Donner'
+      },
+      {
+        id: 8,
+        name: 'Dancer'
+      }
+    ]
+  }
 ]
